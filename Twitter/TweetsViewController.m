@@ -24,6 +24,8 @@
 - (IBAction)onLogout:(id)sender;
 @end
 
+// TODO: Pull to refresh
+
 @implementation TweetsViewController
 
 - (void)viewDidLoad {

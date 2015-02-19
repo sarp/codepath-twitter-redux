@@ -8,6 +8,8 @@
 
 #import "TweetDetailsController.h"
 
+// TODO: Control to retweet, favorite, reply
+
 @interface TweetDetailsController ()
 
 @property (nonatomic, strong) Tweet* tweet;

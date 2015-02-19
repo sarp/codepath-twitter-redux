@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *replyImage;
 @property (weak, nonatomic) IBOutlet UIImageView *retweetImage;
 @property (weak, nonatomic) IBOutlet UIImageView *favoriteImage;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topPadding;
 
 @end
 
@@ -33,8 +34,10 @@
     if (displayTweet == nil) {
         self.retweetedLabel.hidden = YES;
         self.retweetedImage.hidden = YES;
+        self.topPadding.constant = -15;
         displayTweet = tweet;
     } else {
+        self.topPadding.constant = 8;
         self.retweetedLabel.hidden = NO;
         self.retweetedImage.hidden = NO;
         self.retweetedLabel.text = [NSString stringWithFormat:@"%@ retweeted", tweet.user.name];

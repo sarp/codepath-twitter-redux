@@ -92,4 +92,8 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
     }];
 }
 
+- (void) tweet:(NSString*) text completion:(void (^) (NSError *error)) completion {
+    
+}
+
 @end

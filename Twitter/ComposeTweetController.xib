@@ -1,19 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ComposeTweetController">
             <connections>
+                <outlet property="profileHandle" destination="3uO-bg-vAL" id="eW1-3g-ZQv"/>
+                <outlet property="profileImage" destination="zle-IE-8wX" id="3Vo-xZ-B7u"/>
+                <outlet property="profileName" destination="SPU-Ie-Onb" id="2oc-zb-pKj"/>
+                <outlet property="textview" destination="ImO-LO-i1a" id="tEk-2q-lsv"/>
+                <outlet property="topPadding" destination="mvQ-SB-C0z" id="wBS-gA-Fgq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sarpwithverylonghandlewilldowhat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3uO-bg-vAL">
+                    <rect key="frame" x="92" y="100" width="208" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sarp Centel Or A Very Long Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPU-Ie-Onb">
+                    <rect key="frame" x="92" y="80" width="208" height="20"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ImO-LO-i1a">
+                    <rect key="frame" x="20" y="144" width="280" height="404"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zle-IE-8wX">
+                    <rect key="frame" x="20" y="80" width="64" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="EW1-g8-NKZ"/>
+                        <constraint firstAttribute="width" constant="64" id="FH5-HU-xGb"/>
+                    </constraints>
+                </imageView>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="ImO-LO-i1a" firstAttribute="top" secondItem="zle-IE-8wX" secondAttribute="bottom" id="3b7-Tm-q8K"/>
+                <constraint firstItem="3uO-bg-vAL" firstAttribute="top" secondItem="SPU-Ie-Onb" secondAttribute="bottom" id="6SF-zq-4YE"/>
+                <constraint firstAttribute="bottom" secondItem="ImO-LO-i1a" secondAttribute="bottom" constant="20" id="8H5-wC-KpU"/>
+                <constraint firstAttribute="trailing" secondItem="SPU-Ie-Onb" secondAttribute="trailing" constant="20" id="ACh-kq-atx"/>
+                <constraint firstItem="zle-IE-8wX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="HHP-nQ-Nk0"/>
+                <constraint firstItem="SPU-Ie-Onb" firstAttribute="top" secondItem="zle-IE-8wX" secondAttribute="top" id="KbW-CF-72k"/>
+                <constraint firstAttribute="trailing" secondItem="3uO-bg-vAL" secondAttribute="trailing" constant="20" id="V27-KK-S6I"/>
+                <constraint firstItem="3uO-bg-vAL" firstAttribute="leading" secondItem="SPU-Ie-Onb" secondAttribute="leading" id="es1-th-4q5"/>
+                <constraint firstItem="zle-IE-8wX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="80" id="mvQ-SB-C0z"/>
+                <constraint firstItem="SPU-Ie-Onb" firstAttribute="leading" secondItem="zle-IE-8wX" secondAttribute="trailing" constant="8" id="oqg-NK-whT"/>
+                <constraint firstItem="ImO-LO-i1a" firstAttribute="leading" secondItem="zle-IE-8wX" secondAttribute="leading" id="qJY-3y-R5b"/>
+                <constraint firstAttribute="trailing" secondItem="ImO-LO-i1a" secondAttribute="trailing" constant="20" id="uKq-CJ-eFy"/>
+            </constraints>
+            <point key="canvasLocation" x="241" y="293"/>
         </view>
     </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>
