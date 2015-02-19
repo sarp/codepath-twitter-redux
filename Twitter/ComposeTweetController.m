@@ -22,7 +22,6 @@
 
 @end
 
-// TODO: Notify delegate
 // TODO: Show error dialog
 
 @implementation ComposeTweetController
@@ -61,7 +60,7 @@
         if (error != nil) {
             // TODO: show dialog
         } else {
-            // TODO: notify delegate
+            [self.delegate composeTweetController:self didPostTweet:tweet];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];

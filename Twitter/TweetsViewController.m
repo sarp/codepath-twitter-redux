@@ -14,50 +14,45 @@
 #import "TweetCell.h"
 #import "TwitterClient.h"
 
-// TODO: Add delegate to listen to tweet event
-
 @interface TweetsViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *tweets;
 @property (strong, nonatomic) TweetCell *currentCell;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 - (IBAction)onLogout:(id)sender;
 @end
-
-// TODO: Pull to refresh
 
 @implementation TweetsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Table view initialization
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.estimatedRowHeight = 150.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    
     [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil] forCellReuseIdentifier:@"TweetCell"];
     
+    // Initialize Navigation
     self.title = @"Home";
-    
     UINavigationBar *navBar = self.navigationController.navigationBar;
-    
     navBar.tintColor = [UIColor whiteColor];
     navBar.barTintColor = [UIColor colorWithRed:100.0f/255.0f green:166.0f/255.0f blue:233.0f/255.0f alpha:1.0f];
     navBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
-    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onLogout:)];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self action:@selector(onNewTweet)];
     
-    // Do any additional setup after loading the view from its nib.
+    // Pull to refresh
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
     
-    [[TwitterClient sharedInstance] homeTimelineWithParams:nil completion:^(NSArray *tweets, NSError *error) {
-        self.tweets = tweets;
-        [self.tableView reloadData];
-    }];
+    // Fetch data
+    [self refresh];
 }
 
 #pragma mark - Table view methods
@@ -78,13 +73,33 @@
     [self.navigationController pushViewController:[[TweetDetailsController alloc] initWithTweet:self.tweets[indexPath.row]] animated:YES];
 }
 
+- (void) refresh {
+    [[TwitterClient sharedInstance] homeTimelineWithParams:nil completion:^(NSArray *tweets, NSError *error) {
+        if (error == nil) {
+            NSLog(@"Data loaded");
+            [self.refreshControl endRefreshing];
+            self.tweets = tweets;
+            [self.tableView reloadData];
+        } else {
+            // TODO: Show error
+        }
+        
+    }];
+}
+
+- (void) composeTweetController:(ComposeTweetController *)controller didPostTweet:(Tweet *)tweet {
+    [self refresh];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 - (void) onNewTweet {
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[ComposeTweetController alloc] init]];
+    ComposeTweetController *vc = [[ComposeTweetController alloc] init];
+    vc.delegate = self;
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nvc animated:YES completion:nil];
 }
 
