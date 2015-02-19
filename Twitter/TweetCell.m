@@ -27,7 +27,7 @@
 @implementation TweetCell
 
 // TODO: Set date
-// TODO: Make fonts smaller
+// TODO: Correct tweet text wrapping
 
 - (void) setTweet:(Tweet*) tweet {
     Tweet *displayTweet = tweet.retweetedTweet;

@@ -9,6 +9,7 @@
 #import "ComposeTweetController.h"
 #import "User.h"
 #import "UIImageView+AFNetworking.h"
+#import "TwitterClient.h"
 
 @interface ComposeTweetController ()
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
@@ -17,7 +18,12 @@
 @property (weak, nonatomic) IBOutlet UITextView *textview;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topPadding;
 
+@property (strong, nonatomic) Tweet* original;
+
 @end
+
+// TODO: Notify delegate
+// TODO: Show error dialog
 
 @implementation ComposeTweetController
 
@@ -51,7 +57,14 @@
 }
 
 - (void) onTweet {
-    
+    [[TwitterClient sharedInstance] tweet:self.textview.text completion:^(Tweet *tweet, NSError *error) {
+        if (error != nil) {
+            // TODO: show dialog
+        } else {
+            // TODO: notify delegate
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -14,6 +14,8 @@
 #import "TweetCell.h"
 #import "TwitterClient.h"
 
+// TODO: Add delegate to listen to tweet event
+
 @interface TweetsViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;

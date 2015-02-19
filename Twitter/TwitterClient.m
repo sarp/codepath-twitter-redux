@@ -92,8 +92,29 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
     }];
 }
 
-- (void) tweet:(NSString*) text completion:(void (^) (NSError *error)) completion {
-    
+- (void) tweet:(NSString*) text completion:(void (^) (Tweet *tweet, NSError *error)) completion {
+    [self POST:@"1.1/statuses/update.json" parameters:@{@"status" : text } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
+        completion(tweet, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(nil, error);
+    }];
 }
 
+- (void) reply:(NSString*) text original:(Tweet*) tweet completion:(void (^) (Tweet *tweet, NSError *error)) completion {
+    [self POST:@"1.1/statuses/update.json" parameters:@{@"status" : text, @"in_reply_to_status_id" : tweet.tweetId } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
+        completion(tweet, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(nil, error);
+    }];
+}
+
+- (void) retweet:(Tweet*) tweet completion:(void (^) (Tweet *tweet, NSError *error)) completion {
+    // TODO
+}
+
+- (void) favorite:(Tweet*) tweet completion:(void (^) (NSError *error)) completion {
+    // TODO
+}
 @end
