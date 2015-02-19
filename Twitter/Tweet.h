@@ -18,8 +18,8 @@
 @property (nonatomic, assign) BOOL retweeted;
 @property (nonatomic, assign) BOOL isFavorited;
 @property (nonatomic, strong) Tweet *retweetedTweet;
-@property (nonatomic, assign) NSString* retweetCount;
-@property (nonatomic, assign) NSString* favoriteCount;
+@property (nonatomic, strong) NSString* retweetCount;
+@property (nonatomic, strong) NSString* favoriteCount;
 
 - (id) initWithDictionary: (NSDictionary *)dictionary;
 + (NSArray *) tweetsWithArray:(NSArray *) array;

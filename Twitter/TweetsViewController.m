@@ -70,6 +70,7 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.navigationController pushViewController:[[TweetDetailsController alloc] initWithTweet:self.tweets[indexPath.row]] animated:YES];
 }
 
@@ -81,7 +82,8 @@
             self.tweets = tweets;
             [self.tableView reloadData];
         } else {
-            // TODO: Show error
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
         }
         
     }];

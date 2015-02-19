@@ -22,8 +22,6 @@
 
 @end
 
-// TODO: Show error dialog
-
 @implementation ComposeTweetController
 
 - (void)viewDidLoad {
@@ -47,18 +45,20 @@
     self.profileName.text = user.name;
     self.profileHandle.text = user.screenname;
     
-    // give focusntkhgb
+    // give focus
     [self.textview becomeFirstResponder];
 }
 
 - (void) onCancel {
+    [self.textview resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) onTweet {
     [[TwitterClient sharedInstance] tweet:self.textview.text completion:^(Tweet *tweet, NSError *error) {
         if (error != nil) {
-            // TODO: show dialog
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
         } else {
             [self.delegate composeTweetController:self didPostTweet:tweet];
             [self dismissViewControllerAnimated:YES completion:nil];
