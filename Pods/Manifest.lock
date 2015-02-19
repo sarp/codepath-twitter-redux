@@ -23,13 +23,16 @@ PODS:
   - BDBOAuth1Manager (1.5.0):
     - AFNetworking/NSURLConnection (~> 2.5.0)
     - AFNetworking/NSURLSession (~> 2.5.0)
+  - DateTools (1.5.0)
 
 DEPENDENCIES:
   - AFNetworking
   - BDBOAuth1Manager
+  - DateTools
 
 SPEC CHECKSUMS:
   AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
   BDBOAuth1Manager: 274574557077abc873fc5688abe8b991e782749c
+  DateTools: 7df78f0c4719eb28cfd2d58a90fafd036e73156c
 
 COCOAPODS: 0.35.0

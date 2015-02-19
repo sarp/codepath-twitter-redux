@@ -20,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *screenName;
 @property (weak, nonatomic) IBOutlet UILabel *tweetText;
 @property (weak, nonatomic) IBOutlet UILabel *tweetDateText;
-@property (weak, nonatomic) IBOutlet UIView *statsSeperator;
 @property (weak, nonatomic) IBOutlet UILabel *retweetCount;
 @property (weak, nonatomic) IBOutlet UILabel *retweetCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *favoriteCount;
@@ -29,7 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *replyButton;
 @property (weak, nonatomic) IBOutlet UIButton *retweetButton;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
-
+@property (weak, nonatomic) IBOutlet UIView *statsSeperator;
 
 - (IBAction)onFavorite:(id)sender;
 - (IBAction)onRetweet:(id)sender;
@@ -62,8 +61,6 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reply" style:UIBarButtonItemStylePlain target:self action:@selector(onReply:)];
     
-
-    
     BOOL isRetweet = self.tweet.retweetedTweet != nil;
     Tweet *displayedTweet = isRetweet ? self.tweet.retweetedTweet : self.tweet;
     
@@ -76,13 +73,37 @@
     }
     self.topPadding.constant = isRetweet ? 74.0 : 44.0;
     
+    self.profileImage.layer.cornerRadius = 3;
+    self.profileImage.clipsToBounds = YES;
     [self.profileImage setImageWithURL:self.tweet.user.profileImageUrl];
+    
     self.profileName.text = displayedTweet.user.name;
     self.screenName.text = displayedTweet.user.screenname;
     self.tweetText.text = displayedTweet.text;
 
+    BOOL hasZeroRetweets = [displayedTweet.retweetCount isEqualToString:@"0"];
+    BOOL hasZeroFavorites = [displayedTweet.favoriteCount isEqualToString:@"0"];
+    
+    if (hasZeroRetweets && hasZeroFavorites) {
+        self.retweetCount.hidden = YES;
+        self.retweetCountLabel.hidden = YES;
+        self.favoriteCountLabel.hidden = YES;
+        self.favoriteCount.hidden = YES;
+        self.statsSeperator.hidden = YES;
+    } else if (hasZeroFavorites) {
+        self.favoriteCount.hidden = YES;
+        self.favoriteCountLabel.hidden = YES;
+    } else if (hasZeroRetweets) {
+        self.retweetCountLabel.hidden = YES;
+        self.retweetCount.hidden = YES;
+    }
+    
     self.retweetCount.text = displayedTweet.retweetCount;
     self.favoriteCount.text = displayedTweet.favoriteCount;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"M/d/yy, h:m a"];
+    self.tweetDateText.text = [formatter stringFromDate:displayedTweet.createdAt];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,6 +8,7 @@
 
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "NSDate+DateTools.h"
 
 @interface TweetCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *retweetedImage;
@@ -47,6 +48,8 @@
     self.fullNameLabel.text = displayTweet.user.name;
     self.handleLabel.text = [NSString stringWithFormat:@"@%@", displayTweet.user.screenname];
     self.tweetLabel.text = displayTweet.text;
+    self.dateLabel.text = displayTweet.createdAt.shortTimeAgoSinceNow;
+
 }
 
 - (void)awakeFromNib {
