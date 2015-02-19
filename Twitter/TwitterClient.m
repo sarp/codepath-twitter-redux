@@ -59,24 +59,36 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
         
         [self GET:@"1.1/account/verify_credentials.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-            //            NSLog(@"current user: %@", responseObject);
             User *user = [[User alloc] initWithDictionary:responseObject];
             NSLog(@"current user: %@", user);
+            [User setCurrentUser:user];
             self.loginCompletion(user, nil);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"failed to get current user");
             self.loginCompletion(nil, error);
         }];
-//        
-//        [self GET:@"1.1/statuses/home_timeline.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            NSArray* tweets = [Tweet tweetsWithArray:responseObject];
-//            NSLog(@"tweets: %@", tweets);
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"error getting tweets");
-//        }];
     } failure:^(NSError *error) {
         NSLog(@"failed to get the access token");
         self.loginCompletion(nil, error);
+    }];
+}
+
+- (void) homeTimelineWithParams:(NSDictionary*) params completion:(void (^)(NSArray *tweets, NSError *error)) completion {
+    [self GET:@"1.1/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray* tweets = [Tweet tweetsWithArray:responseObject];
+        completion(tweets, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(nil, error);
+    }];
+}
+
+- (void) userTimelineForUser:(NSString*) screenName completion:(void (^)(NSArray *tweets, NSError * error)) completion {
+    NSDictionary *params = @{ @"screen_name" : screenName};
+    [self GET:@"1.1/statuses/user_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *tweets = [Tweet tweetsWithArray:responseObject];
+        completion(tweets, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(nil, error);
     }];
 }
 

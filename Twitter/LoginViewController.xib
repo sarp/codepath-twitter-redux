@@ -16,8 +16,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zog-w1-SzW">
-                    <rect key="frame" x="240" y="285" width="121" height="30"/>
+                    <rect key="frame" x="226" y="283" width="148" height="35"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
                     <state key="normal" title="Login with Twitter">
+                        <color key="titleColor" red="0.92674200809999996" green="0.95147916830000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -25,7 +27,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.39215686274509803" green="0.65098039215686276" blue="0.9137254901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="Zog-w1-SzW" secondAttribute="centerX" id="8U8-H2-266"/>
                 <constraint firstAttribute="centerY" secondItem="Zog-w1-SzW" secondAttribute="centerY" id="muI-ge-yhP"/>

@@ -17,7 +17,15 @@
         NSString *createdString = dictionary[@"created_at"];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"EEE MMM d HH:mm:ss Z y";
+        self.user = [[User alloc] initWithDictionary:dictionary[@"user"]];
         self.createdAt = [formatter dateFromString:createdString];
+        self.retweetCount = dictionary[@"retweet_count"];
+        self.favoriteCount = dictionary[@"favorite_count"];
+        self.retweeted = [dictionary[@"retweeted"] boolValue];
+        self.isFavorited = [dictionary[@"favorited"] boolValue];
+        if (dictionary[@"retweeted_status"] != nil) {
+            self.retweetedTweet = [[Tweet alloc] initWithDictionary:dictionary[@"retweeted_status"]];
+        }
     }
     return self;
 }
