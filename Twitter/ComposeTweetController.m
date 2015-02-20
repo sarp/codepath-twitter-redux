@@ -43,6 +43,9 @@
     self.profileHandle.text = user.screenname;
     
     // give focus
+    if (self.original != nil) {
+        self.textview.text = [NSString stringWithFormat:@"@%@ ", self.original.user.screenname];
+    }
     [self.textview becomeFirstResponder];
 }
 
