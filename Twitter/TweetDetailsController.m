@@ -8,8 +8,8 @@
 
 #import "TweetDetailsController.h"
 #import "UIImageView+AFNetworking.h"
-
-// TODO: Control to retweet, favorite, reply
+#import "TwitterClient.h"
+#import "ComposeTweetController.h"
 
 @interface TweetDetailsController ()
 
@@ -71,6 +71,15 @@
         self.retweetedLabel.hidden = YES;
         self.retweetedImage.hidden = YES;
     }
+    
+    if (displayedTweet.retweeted) {
+        [self.retweetButton setImage:[UIImage imageNamed:@"retweet_on.png"] forState:UIControlStateNormal];
+    }
+    
+    if (displayedTweet.isFavorited) {
+        [self.favoriteButton setImage:[UIImage imageNamed:@"favorite_on.png"] forState:UIControlStateNormal];
+    }
+    
     self.topPadding.constant = isRetweet ? 74.0 : 44.0;
     
     self.profileImage.layer.cornerRadius = 3;
@@ -121,16 +130,35 @@
 }
 */
 
+- (void) onError:(NSError*) error {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+}
 
 - (IBAction)onFavorite:(id)sender {
-        NSLog(@"onFavorite");
+    [[TwitterClient sharedInstance] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+        if (error == nil) {
+            [self.favoriteButton setImage:[UIImage imageNamed:@"favorite_on.png"] forState:UIControlStateNormal];
+        } else {
+            [self onError:error];
+        }
+    }];
 }
 
 - (IBAction)onRetweet:(id)sender {
-    NSLog(@"onRetweet");
+    [[TwitterClient sharedInstance] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+        if (error == nil) {
+            [self.retweetButton setImage:[UIImage imageNamed:@"retweet_on.png"] forState:UIControlStateNormal];
+        } else {
+            [self onError:error];
+        }
+    }];
 }
 
 - (IBAction)onReply:(id)sender {
-        NSLog(@"onReply");
+    ComposeTweetController *vc = [[ComposeTweetController alloc] init];
+    vc.original = self.tweet;
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nvc animated:YES completion:nil];
 }
 @end

@@ -16,6 +16,8 @@
 
 @interface TweetsViewController ()
 
+// TODO: Implement retweet, favorite and reply
+
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *tweets;

@@ -27,7 +27,6 @@
 
 @implementation TweetCell
 
-// TODO: Set date
 // TODO: Correct tweet text wrapping
 
 - (void) setTweet:(Tweet*) tweet {

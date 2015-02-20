@@ -17,9 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *profileHandle;
 @property (weak, nonatomic) IBOutlet UITextView *textview;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topPadding;
-
-@property (strong, nonatomic) Tweet* original;
-
 @end
 
 @implementation ComposeTweetController
@@ -55,7 +52,7 @@
 }
 
 - (void) onTweet {
-    [[TwitterClient sharedInstance] tweet:self.textview.text completion:^(Tweet *tweet, NSError *error) {
+    [[TwitterClient sharedInstance] tweet:self.textview.text original:self.original completion:^(Tweet *tweet, NSError *error) {
         if (error != nil) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
