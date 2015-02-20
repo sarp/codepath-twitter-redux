@@ -11,5 +11,5 @@
 
 @interface TweetCell : UITableViewCell
 
-- (void) setTweet: (Tweet*) tweet;
+- (void) setTweet: (Tweet*) tweet forIndexPath:(NSIndexPath*) indexPath;
 @end

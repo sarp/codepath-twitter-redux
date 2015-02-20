@@ -29,7 +29,7 @@
 
 // TODO: Correct tweet text wrapping
 
-- (void) setTweet:(Tweet*) tweet {
+- (void) setTweet:(Tweet*) tweet forIndexPath:(NSIndexPath*) indexPath {
     Tweet *displayTweet = tweet.retweetedTweet;
     if (displayTweet == nil) {
         self.retweetedLabel.hidden = YES;
@@ -42,13 +42,31 @@
         self.retweetedImage.hidden = NO;
         self.retweetedLabel.text = [NSString stringWithFormat:@"%@ retweeted", tweet.user.name];
     }
-    
+
+    [self setFavoritedStatus:displayTweet];
+    [self setRetweetedStatus:displayTweet];
     [self.profileImage setImageWithURL:displayTweet.user.profileImageUrl];
     self.fullNameLabel.text = displayTweet.user.name;
     self.handleLabel.text = [NSString stringWithFormat:@"@%@", displayTweet.user.screenname];
     self.tweetLabel.text = displayTweet.text;
     self.dateLabel.text = displayTweet.createdAt.shortTimeAgoSinceNow;
+    self.replyImage.tag = indexPath.row;
+}
 
+- (void) setFavoritedStatus: (Tweet*) tweet {
+    if (tweet.isFavorited) {
+        self.favoriteImage.image =  [UIImage imageNamed:@"favorite_on.png"];
+    } else {
+        self.favoriteImage.image =  [UIImage imageNamed:@"favorite.png"] ;
+    }
+}
+
+- (void) setRetweetedStatus: (Tweet*) tweet {
+    if (tweet.retweeted) {
+        self.retweetImage.image =  [UIImage imageNamed:@"retweet_on.png"];
+    } else {
+        self.retweetImage.image =  [UIImage imageNamed:@"retweet.png"] ;
+    }
 }
 
 - (void)awakeFromNib {
