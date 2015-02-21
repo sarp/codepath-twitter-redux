@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *tweets;
-@property (strong, nonatomic) TweetCell *currentCell;
+//@property (strong, nonatomic) TweetCell *currentCell;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 - (IBAction)onLogout:(id)sender;
@@ -66,8 +66,9 @@
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell" forIndexPath:indexPath];
     [cell setTweet:self.tweets[indexPath.row]];
+    cell.delegate = self;
     
-    self.currentCell = cell;
+//    self.currentCell = cell;
     return cell;
 }
 
@@ -91,8 +92,23 @@
     }];
 }
 
+# pragma mark - TweetCell delegate methods
+- (void) onTapReply:(TweetCell *)cell {
+    [self onNewTweet:cell.currentTweet];
+}
+
+- (void) onTapFavorite:(TweetCell *)cell {
+    NSLog(@"On favorite: %@", cell.currentTweet.text);
+}
+
+- (void) onTapRetweet:(TweetCell *)cell {
+    NSLog(@"On retweet: %@", cell.currentTweet.text);
+}
+
 - (void) composeTweetController:(ComposeTweetController *)controller didPostTweet:(Tweet *)tweet {
-    [self refresh];
+    NSMutableArray *newTweets = [NSMutableArray arrayWithObject:tweet];
+    self.tweets = [newTweets arrayByAddingObjectsFromArray:self.tweets];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -101,8 +117,13 @@
 }
 
 - (void) onNewTweet {
+    [self onNewTweet:nil];
+}
+
+- (void) onNewTweet:(Tweet*) original {
     ComposeTweetController *vc = [[ComposeTweetController alloc] init];
     vc.delegate = self;
+    vc.original = original;
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nvc animated:YES completion:nil];
 }

@@ -45,10 +45,10 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="retweet.png" translatesAutoresizingMaskIntoConstraints="NO" id="XRz-kq-qjj">
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="retweet.png" translatesAutoresizingMaskIntoConstraints="NO" id="XRz-kq-qjj">
                         <rect key="frame" x="141" y="108" width="19" height="16"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="favorite.png" translatesAutoresizingMaskIntoConstraints="NO" id="LOA-Ue-lVU">
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="favorite.png" translatesAutoresizingMaskIntoConstraints="NO" id="LOA-Ue-lVU">
                         <rect key="frame" x="205" y="108" width="16" height="16"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="@handle can be long too" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTy-vy-IHY">
@@ -64,7 +64,7 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reply.png" translatesAutoresizingMaskIntoConstraints="NO" id="GIF-L8-QTR">
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reply.png" translatesAutoresizingMaskIntoConstraints="NO" id="GIF-L8-QTR">
                         <rect key="frame" x="80" y="108" width="16" height="16"/>
                     </imageView>
                 </subviews>
@@ -112,8 +112,8 @@
                         <exclude reference="Gdj-jk-nYJ"/>
                         <exclude reference="st7-NV-vay"/>
                         <exclude reference="jsc-rH-3XK"/>
-                        <exclude reference="cvL-X7-5j0"/>
                         <exclude reference="sAL-dY-buF"/>
+                        <exclude reference="cvL-X7-5j0"/>
                         <exclude reference="NTP-Lb-JKe"/>
                         <exclude reference="ccn-eY-rdg"/>
                     </mask>

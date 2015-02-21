@@ -10,6 +10,8 @@
 #import "TwitterClient.h"
 #import "TweetsViewController.h"
 
+// TODO: Improve design, hide nav bar
+
 @interface LoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;

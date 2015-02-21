@@ -9,7 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "Tweet.h"
 
+@class TweetCell;
+
+@protocol TweetCellDelegate <NSObject>
+
+- (void) onTapFavorite: (TweetCell*) cell;
+- (void) onTapReply: (TweetCell*) cell;
+- (void) onTapRetweet: (TweetCell*) cell;
+
+@end
+
 @interface TweetCell : UITableViewCell
 
-- (void) setTweet: (Tweet*) tweet forIndexPath:(NSIndexPath*) indexPath;
+@property (strong, nonatomic) Tweet* currentTweet;
+@property (nonatomic, weak) id<TweetCellDelegate> delegate;
+- (void) setTweet: (Tweet*) tweet;
 @end

@@ -44,7 +44,11 @@
     
     // give focus
     if (self.original != nil) {
-        self.textview.text = [NSString stringWithFormat:@"@%@ ", self.original.user.screenname];
+        if (self.original.retweetedTweet != nil) {
+            self.textview.text = [NSString stringWithFormat:@"@%@ @%@ ", self.original.retweetedTweet.user.screenname, self.original.user.screenname];
+        } else {
+            self.textview.text = [NSString stringWithFormat:@"@%@ ", self.original.user.screenname];
+        }
     }
     [self.textview becomeFirstResponder];
 }

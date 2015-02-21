@@ -11,6 +11,7 @@
 #import "NSDate+DateTools.h"
 
 @interface TweetCell ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *retweetedImage;
 @property (weak, nonatomic) IBOutlet UILabel *retweetedLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
@@ -29,7 +30,8 @@
 
 // TODO: Correct tweet text wrapping
 
-- (void) setTweet:(Tweet*) tweet forIndexPath:(NSIndexPath*) indexPath {
+- (void) setTweet:(Tweet*) tweet {
+    self.currentTweet = tweet;
     Tweet *displayTweet = tweet.retweetedTweet;
     if (displayTweet == nil) {
         self.retweetedLabel.hidden = YES;
@@ -50,7 +52,6 @@
     self.handleLabel.text = [NSString stringWithFormat:@"@%@", displayTweet.user.screenname];
     self.tweetLabel.text = displayTweet.text;
     self.dateLabel.text = displayTweet.createdAt.shortTimeAgoSinceNow;
-    self.replyImage.tag = indexPath.row;
 }
 
 - (void) setFavoritedStatus: (Tweet*) tweet {
@@ -73,8 +74,29 @@
     self.tweetLabel.preferredMaxLayoutWidth = self.tweetLabel.frame.size.width;
     self.profileImage.layer.cornerRadius = 3;
     self.profileImage.clipsToBounds = YES;
+    
+    UITapGestureRecognizer *replyRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapReply)];
+    [self.replyImage addGestureRecognizer:replyRecognizer];
+    
+    UITapGestureRecognizer *retweetRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapRetweet)];
+    [self.retweetImage addGestureRecognizer:retweetRecognizer];
+    
+    UITapGestureRecognizer *favoriteRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapFavorite)];
+    [self.favoriteImage addGestureRecognizer:favoriteRecognizer];
 
     // Initialization code
+}
+
+- (void) onTapReply {
+    [self.delegate onTapReply:self];
+}
+
+- (void) onTapFavorite {
+    [self.delegate onTapFavorite:self];
+}
+
+- (void) onTapRetweet {
+    [self.delegate onTapRetweet:self];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
