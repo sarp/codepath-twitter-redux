@@ -17,6 +17,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *profileHandle;
 @property (weak, nonatomic) IBOutlet UITextView *textview;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topPadding;
+
+@property (strong, nonatomic) UILabel *countLabel;
+@property (strong, nonatomic) UIBarButtonItem *tweetButton;
 @end
 
 @implementation ComposeTweetController
@@ -30,8 +33,15 @@
      name:UIDeviceOrientationDidChangeNotification
      object:[UIDevice currentDevice]];
     
+    // Initialize nav bar items
+    self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    self.countLabel.font = [UIFont systemFontOfSize:14.0];
+    self.countLabel.text = @"140";
+    
+    UIBarButtonItem *countItem = [[UIBarButtonItem alloc] initWithCustomView:self.countLabel];
+    self.tweetButton = [[UIBarButtonItem alloc] initWithTitle:@"Tweet" style:UIBarButtonItemStylePlain target:self action:@selector(onTweet)];
+    self.navigationItem.rightBarButtonItems = @[self.tweetButton, countItem];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(onCancel)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Tweet" style:UIBarButtonItemStylePlain target:self action:@selector(onTweet)];
     
     // Do any additional setup after loading the view from its nib.
     User *user = [User currentUser];
@@ -50,6 +60,7 @@
             self.textview.text = [NSString stringWithFormat:@"@%@ ", self.original.user.screenname];
         }
     }
+    [self updateRighBarButtonItems];
     [self.textview becomeFirstResponder];
 }
 
@@ -68,6 +79,19 @@
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
+}
+
+- (void) updateRighBarButtonItems {
+    NSUInteger characters = self.textview.text.length;
+    [self.tweetButton setEnabled:(characters > 0 && characters <= 140)];
+    NSInteger remaining = 140 - characters;
+    self.countLabel.text = [NSString stringWithFormat:@"%ld", remaining];
+    self.countLabel.textColor = remaining >= 20 ? [UIColor lightGrayColor] : [UIColor redColor];
+    [self.countLabel sizeToFit];
+}
+
+- (void) textViewDidChange:(UITextView *)textView {
+    [self updateRighBarButtonItems];
 }
 
 - (void)didReceiveMemoryWarning {
