@@ -63,7 +63,7 @@
 }
 
 - (void) setRetweetedStatus: (Tweet*) tweet {
-    if (tweet.retweeted) {
+    if (tweet.isRetweeted) {
         self.retweetImage.image =  [UIImage imageNamed:@"retweet_on.png"];
     } else {
         self.retweetImage.image =  [UIImage imageNamed:@"retweet.png"] ;

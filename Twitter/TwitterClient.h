@@ -15,12 +15,12 @@
 + (TwitterClient *) sharedInstance;
 - (void) loginWithCompletion:(void (^)(User *user, NSError *error)) completion;
 - (void) openURL:(NSURL*)url;
-
 - (void) homeTimelineWithParams:(NSDictionary*) params completion:(void (^)(NSArray *tweets, NSError *error)) completion;
 - (void) userTimelineForUser:(NSString*) user completion:(void (^)(NSArray *tweets, NSError *error)) completion;
-
 - (void) tweet:(NSString*) text original:(Tweet*) tweet completion:(void (^) (Tweet *tweet, NSError *error)) completion;
 - (void) retweet:(Tweet*) tweet completion:(void (^) (Tweet* tweet, NSError *error)) completion;
+- (void) unretweet:(NSString*) tweetId completion:(void (^) (Tweet* tweet, NSError *error)) completion;
 - (void) favorite:(Tweet*) tweet completion:(void (^) (Tweet* tweet, NSError *error)) completion;
+- (void) unfavorite:(Tweet*) tweet completion:(void (^) (Tweet* tweet, NSError *error)) completion;
 
 @end

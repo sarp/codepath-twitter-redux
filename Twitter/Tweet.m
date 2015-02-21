@@ -22,7 +22,9 @@
         self.createdAt = [formatter dateFromString:createdString];
         self.retweetCount = [dictionary[@"retweet_count"] stringValue];
         self.favoriteCount = [dictionary[@"favorite_count"] stringValue];
-        self.retweeted = [dictionary[@"retweeted"] boolValue];
+        self.isRetweeted = [dictionary[@"retweeted"] boolValue];
+        NSDictionary *retweetInfo = dictionary[@"current_user_retweet"];
+        self.currentUserRetweetId = retweetInfo[@"id_str"];
         self.isFavorited = [dictionary[@"favorited"] boolValue];
         if (dictionary[@"retweeted_status"] != nil) {
             self.retweetedTweet = [[Tweet alloc] initWithDictionary:dictionary[@"retweeted_status"]];

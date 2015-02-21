@@ -104,7 +104,16 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
 }
 
 - (void) retweet:(Tweet*) tweet completion:(void (^) (Tweet *tweet, NSError *error)) completion {
-    [self POST:[NSString stringWithFormat:@"1.1/statuses/retweet/%@.json", tweet.tweetId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self POST:[NSString stringWithFormat:@"1.1/statuses/retweet/%@.json", tweet.tweetId] parameters:@{@"include_my_retweet" : @"true"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
+        completion(tweet, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(nil, error);
+    }];
+}
+
+- (void) unretweet:(NSString*) tweetId completion:(void (^) (Tweet *tweet, NSError *error)) completion {
+    [self POST:[NSString stringWithFormat:@"1.1/statuses/destroy/%@.json", tweetId] parameters:@{@"include_my_retweet" : @"true"} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
         completion(tweet, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -113,7 +122,16 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
 }
 
 - (void) favorite:(Tweet*) tweet completion:(void (^) (Tweet *tweet, NSError *error)) completion {
-    [self POST:@"1.1/favorites/create.json" parameters:@{@"id" : tweet.tweetId } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self POST:@"1.1/favorites/create.json" parameters:@{@"id" : tweet.tweetId, @"include_my_retweet" : @"true" } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
+        completion(tweet, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(nil, error);
+    }];
+}
+
+- (void) unfavorite:(Tweet*) tweet completion:(void (^) (Tweet *tweet, NSError *error)) completion {
+    [self POST:@"1.1/favorites/destroy.json" parameters:@{@"id" : tweet.tweetId, @"include_my_retweet" : @"true" } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
         completion(tweet, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

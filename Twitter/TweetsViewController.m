@@ -29,6 +29,10 @@
 
 @implementation TweetsViewController
 
+- (void) didUpdateTweet:(Tweet *)tweet {
+    [self refresh];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -74,11 +78,13 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.navigationController pushViewController:[[TweetDetailsController alloc] initWithTweet:self.tweets[indexPath.row]] animated:YES];
+    TweetDetailsController *vc = [[TweetDetailsController alloc] initWithTweet:self.tweets[indexPath.row]];
+    vc.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void) refresh {
-    [[TwitterClient sharedInstance] homeTimelineWithParams:nil completion:^(NSArray *tweets, NSError *error) {
+    [[TwitterClient sharedInstance] homeTimelineWithParams:@{@"include_my_retweet" : @"true"} completion:^(NSArray *tweets, NSError *error) {
         if (error == nil) {
             NSLog(@"Data loaded");
             [self.refreshControl endRefreshing];

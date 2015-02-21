@@ -9,8 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "Tweet.h"
 
+@protocol TweetDetailsDelegate <NSObject>
+
+- (void) didUpdateTweet:(Tweet*) tweet;
+
+@end
+
 @interface TweetDetailsController : UIViewController
 
+@property (weak, nonatomic) id<TweetDetailsDelegate> delegate;
 - (id) initWithTweet:(Tweet*) tweet;
 
 @end
