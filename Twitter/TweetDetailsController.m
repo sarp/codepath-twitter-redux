@@ -65,14 +65,14 @@
     [self.retweetButton setSelected:displayedTweet.isRetweeted];
     [self.favoriteButton setSelected:displayedTweet.isFavorited];
     
-    self.topPadding.constant = isRetweet ? 74.0 : 44.0;
+    self.topPadding.constant = isRetweet ? 74.0 : 50.0;
     
     self.profileImage.layer.cornerRadius = 3;
     self.profileImage.clipsToBounds = YES;
     [self.profileImage setImageWithURL:self.tweet.user.profileImageUrl];
     
     self.profileName.text = displayedTweet.user.name;
-    self.screenName.text = displayedTweet.user.screenname;
+    self.screenName.text = [NSString stringWithFormat:@"@%@", displayedTweet.user.screenname];
     self.tweetText.text = displayedTweet.text;
 
     self.retweetCount.text = displayedTweet.retweetCount;

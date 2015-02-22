@@ -40,7 +40,7 @@
                         </variation>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="14/14/14" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNk-yO-O54">
-                        <rect key="frame" x="262" y="33" width="50" height="14.5"/>
+                        <rect key="frame" x="262" y="35" width="50" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -59,8 +59,8 @@
                             <constraint firstAttribute="height" constant="16" id="xse-PJ-aOD"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" misplaced="YES" text="@handle can be long too" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTy-vy-IHY">
-                        <rect key="frame" x="116" y="34" width="138" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="@handle can be long too" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTy-vy-IHY">
+                        <rect key="frame" x="116" y="35.5" width="138" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -80,7 +80,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Very Short" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4K-ba-gQe">
-                        <rect key="frame" x="64" y="32" width="44" height="16.5"/>
+                        <rect key="frame" x="64" y="32" width="44" height="21"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -93,7 +93,7 @@
                     <constraint firstItem="FYg-7H-5Bz" firstAttribute="leading" secondItem="VlD-Ad-oKQ" secondAttribute="trailing" constant="8" id="82q-of-eZu"/>
                     <constraint firstItem="XRz-kq-qjj" firstAttribute="leading" secondItem="GIF-L8-QTR" secondAttribute="trailing" constant="45" id="D7m-jz-jzN"/>
                     <constraint firstItem="lfp-2x-WXo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="FPg-14-bRP"/>
-                    <constraint firstItem="BcD-yz-5zX" firstAttribute="top" secondItem="F4K-ba-gQe" secondAttribute="bottom" constant="4" id="Gad-HF-xJY"/>
+                    <constraint firstItem="BcD-yz-5zX" firstAttribute="top" secondItem="F4K-ba-gQe" secondAttribute="bottom" id="Gad-HF-xJY"/>
                     <constraint firstItem="nNk-yO-O54" firstAttribute="centerY" secondItem="F4K-ba-gQe" secondAttribute="centerY" id="L5K-9q-Hmj"/>
                     <constraint firstAttribute="trailing" secondItem="BcD-yz-5zX" secondAttribute="trailing" constant="8" id="Ld7-aA-gVU"/>
                     <constraint firstItem="BcD-yz-5zX" firstAttribute="leading" secondItem="GIF-L8-QTR" secondAttribute="leading" id="Lta-0M-Iq1"/>
