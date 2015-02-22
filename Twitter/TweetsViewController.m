@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *tweets;
-//@property (strong, nonatomic) TweetCell *currentCell;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 - (IBAction)onLogout:(id)sender;
@@ -39,7 +38,7 @@
     // Table view initialization
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.estimatedRowHeight = 150.0;
+    self.tableView.estimatedRowHeight = 160.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil] forCellReuseIdentifier:@"TweetCell"];
     
@@ -71,8 +70,6 @@
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell" forIndexPath:indexPath];
     [cell setTweet:self.tweets[indexPath.row]];
     cell.delegate = self;
-    
-//    self.currentCell = cell;
     return cell;
 }
 
@@ -119,7 +116,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) onNewTweet {
