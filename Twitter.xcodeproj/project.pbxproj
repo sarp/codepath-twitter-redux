@@ -23,6 +23,7 @@
 		D15E24031A952309007EC95E /* retweet.png in Resources */ = {isa = PBXBuildFile; fileRef = D15E23FB1A952309007EC95E /* retweet.png */; };
 		D16D25D11A95532700CFBD41 /* TweetDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D16D25CF1A95532700CFBD41 /* TweetDetailsController.m */; };
 		D16D25D21A95532700CFBD41 /* TweetDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D16D25D01A95532700CFBD41 /* TweetDetailsController.xib */; };
+		D1F008CB1A999C96002E93C2 /* twitter_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D1F008CA1A999C96002E93C2 /* twitter_logo.png */; };
 		D1F9EF351A94108C0046E935 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F9EF341A94108C0046E935 /* main.m */; };
 		D1F9EF381A94108C0046E935 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F9EF371A94108C0046E935 /* AppDelegate.m */; };
 		D1F9EF401A94108C0046E935 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1F9EF3F1A94108C0046E935 /* Images.xcassets */; };
@@ -68,6 +69,7 @@
 		D16D25CE1A95532700CFBD41 /* TweetDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetDetailsController.h; sourceTree = "<group>"; };
 		D16D25CF1A95532700CFBD41 /* TweetDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetDetailsController.m; sourceTree = "<group>"; };
 		D16D25D01A95532700CFBD41 /* TweetDetailsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetDetailsController.xib; sourceTree = "<group>"; };
+		D1F008CA1A999C96002E93C2 /* twitter_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter_logo.png; sourceTree = "<group>"; };
 		D1F9EF2F1A94108C0046E935 /* Twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1F9EF331A94108C0046E935 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D1F9EF341A94108C0046E935 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 		D15E23F31A9522C6007EC95E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D1F008CA1A999C96002E93C2 /* twitter_logo.png */,
 				D15E23F41A952309007EC95E /* favorite_hover.png */,
 				D15E23F51A952309007EC95E /* favorite_on.png */,
 				D15E23F61A952309007EC95E /* favorite.png */,
@@ -334,6 +337,7 @@
 				D13D5F3F1A958967000D15FF /* Images-2.xcassets in Resources */,
 				D15E24031A952309007EC95E /* retweet.png in Resources */,
 				D1F9EF6C1A94E6240046E935 /* TweetsViewController.xib in Resources */,
+				D1F008CB1A999C96002E93C2 /* twitter_logo.png in Resources */,
 				D15E23F21A9521E1007EC95E /* TweetCell.xib in Resources */,
 				D15E23FF1A952309007EC95E /* reply_hover.png in Resources */,
 				D15E23FC1A952309007EC95E /* favorite_hover.png in Resources */,

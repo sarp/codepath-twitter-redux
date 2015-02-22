@@ -26,7 +26,9 @@
     [super viewDidLoad];
     
     self.title = @"Twitter Client";
-    // Do any additional setup after loading the view from its nib.
+    
+    self.loginButton.layer.cornerRadius = 10;
+    self.loginButton.clipsToBounds = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,6 +52,7 @@
             // Modally present tweets view
             NSLog(@"Welcome to %@", user.name);
             [self.navigationController pushViewController:[[TweetsViewController alloc] init] animated:YES];
+            [self.navigationController.navigationBar setHidden:NO];
         } else {
             // Present error view
         }

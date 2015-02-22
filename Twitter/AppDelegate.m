@@ -38,6 +38,7 @@
     }
     
     UINavigationController* nvc = [[UINavigationController alloc] initWithRootViewController:mainController];
+    [nvc.navigationBar setHidden:user == nil];
     self.window.rootViewController = nvc;
     
     [self.window makeKeyAndVisible];
@@ -48,7 +49,9 @@
 }
 
 - (void) userDidLogout {
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+    [nvc.navigationBar setHidden:YES];
+    self.window.rootViewController = nvc;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

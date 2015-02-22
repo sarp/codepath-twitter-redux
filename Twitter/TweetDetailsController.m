@@ -69,7 +69,7 @@
     
     self.profileImage.layer.cornerRadius = 3;
     self.profileImage.clipsToBounds = YES;
-    [self.profileImage setImageWithURL:self.tweet.user.profileImageUrl];
+    [self.profileImage setImageWithURL:displayedTweet.user.profileImageUrl];
     
     self.profileName.text = displayedTweet.user.name;
     self.screenName.text = [NSString stringWithFormat:@"@%@", displayedTweet.user.screenname];
