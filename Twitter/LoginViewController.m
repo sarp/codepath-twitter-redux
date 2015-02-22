@@ -22,9 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"Twitter Client";
-    
+        
     self.loginButton.layer.cornerRadius = 10;
     self.loginButton.clipsToBounds = YES;
 }

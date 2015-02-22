@@ -83,7 +83,6 @@
 - (void) refresh {
     [[TwitterClient sharedInstance] homeTimelineWithParams:@{@"include_my_retweet" : @"true"} completion:^(NSArray *tweets, NSError *error) {
         if (error == nil) {
-            NSLog(@"Data loaded");
             [self.refreshControl endRefreshing];
             self.tweets = tweets;
             [self.tableView reloadData];
