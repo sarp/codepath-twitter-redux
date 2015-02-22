@@ -30,10 +30,8 @@
     
     UIViewController *mainController;
     if (user != nil) {
-        NSLog(@"Welcome %@", user.name);
         mainController = [[TweetsViewController alloc] init];
     } else {
-        NSLog(@"Not logged in");
         mainController = [[LoginViewController alloc] init];
     }
     

@@ -61,6 +61,8 @@
         }
     }
     [self updateRighBarButtonItems];
+    BOOL isPortrait =([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait);
+    [self updatePadding:isPortrait];
     [self.textview becomeFirstResponder];
 }
 
@@ -98,14 +100,18 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void) orientationChanged:(NSNotification *)note
-{
-    UIDevice * device = note.object;
-    if (device.orientation == UIDeviceOrientationPortrait) {
+- (void) updatePadding:(BOOL) isPortrait {
+    if (isPortrait) {
         self.topPadding.constant = 80;
     } else {
         self.topPadding.constant = 48;
     }
+}
+
+- (void) orientationChanged:(NSNotification *)note
+{
+    UIDevice * device = note.object;
+    [self updatePadding:(device.orientation == UIDeviceOrientationPortrait)];
 }
 
 @end

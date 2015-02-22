@@ -37,6 +37,8 @@
 @property (nonatomic, strong) Tweet* tweet;
 @property (nonatomic, strong) Tweet* retweetTweet;
 
+- (void) updatePadding:(BOOL) isPortrait;
+
 @end
 
 
@@ -81,10 +83,19 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"M/d/yy, h:m a"];
     self.tweetDateText.text = [formatter stringFromDate:displayedTweet.createdAt];
+    
+    BOOL isPortrait =([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait);
+    [self updatePadding:isPortrait];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(orientationChanged:)
+     name:UIDeviceOrientationDidChangeNotification
+     object:[UIDevice currentDevice]];
     
     self.title = @"Tweet";
     // Do any additional setup after loading the view from its nib.
@@ -166,5 +177,27 @@
     vc.original = self.tweet;
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nvc animated:YES completion:nil];
+}
+
+- (void) updatePadding:(BOOL) isPortrait {
+    if (isPortrait) {
+        if (self.tweet.retweetedTweet != nil) {
+            self.topPadding.constant = 74;
+        } else {
+            self.topPadding.constant = 50;
+        }
+    } else {
+        if (self.tweet.retweetedTweet != nil) {
+            self.topPadding.constant = 44;
+        } else {
+            self.topPadding.constant = 20;
+        }
+    }
+}
+
+- (void) orientationChanged:(NSNotification *)note
+{
+    UIDevice * device = note.object;
+    [self updatePadding:(device.orientation == UIDeviceOrientationPortrait)];
 }
 @end
