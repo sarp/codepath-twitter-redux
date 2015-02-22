@@ -10,8 +10,6 @@
 #import "TwitterClient.h"
 #import "TweetsViewController.h"
 
-// TODO: Improve design, hide nav bar
-
 @interface LoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
@@ -33,28 +31,18 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)onLogin:(id)sender {
     [[TwitterClient sharedInstance] loginWithCompletion:^(User *user, NSError *error) {
         if (user != nil) {
             // Modally present tweets view
-            NSLog(@"Welcome to %@", user.name);
             [self.navigationController pushViewController:[[TweetsViewController alloc] init] animated:YES];
             [self.navigationController.navigationBar setHidden:NO];
         } else {
             // Present error view
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
         }
     }];
 }
