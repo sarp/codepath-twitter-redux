@@ -53,7 +53,7 @@
 }
 
 - (void) updateTweetViews {
-    BOOL isRetweet = self.tweet.retweetedTweet != nil;
+    BOOL isRetweet = [self.tweet isRetweet];
     Tweet *displayedTweet = isRetweet ? self.tweet.retweetedTweet : self.tweet;
     
     if (isRetweet) {
@@ -99,7 +99,6 @@
      object:[UIDevice currentDevice]];
     
     self.title = @"Tweet";
-    // Do any additional setup after loading the view from its nib.
     
     UINavigationBar *navBar = self.navigationController.navigationBar;
     navBar.tintColor = [UIColor whiteColor];
@@ -147,25 +146,26 @@
 }
 
 - (IBAction)onRetweet:(id)sender {
-    if (self.tweet.isRetweeted) {
-        [[TwitterClient sharedInstance] unretweet:self.tweet.currentUserRetweetId completion:^(Tweet *tweet, NSError *error) {
+    Tweet *targetTweet = [self.tweet isRetweet] ? self.tweet.retweetedTweet : self.tweet;
+    if (targetTweet.isRetweeted) {
+        [[TwitterClient sharedInstance] unretweet:targetTweet.currentUserRetweetId completion:^(Tweet *tweet, NSError *error) {
             if (error == nil) {
-                self.tweet.isRetweeted = NO;
-                self.tweet.retweetCount = [NSString stringWithFormat:@"%ld", tweet.retweetCount.integerValue-1];
+                targetTweet.isRetweeted = NO;
+                targetTweet.retweetCount = [NSString stringWithFormat:@"%ld", targetTweet.retweetCount.integerValue-1];
                 [self updateTweetViews];
-                [self.delegate didUpdateTweet:self.tweet];
+                [self.delegate didUpdateTweet:targetTweet];
             } else {
                 [self onError:error];
             }
         }];
     } else {
-        [[TwitterClient sharedInstance] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+        [[TwitterClient sharedInstance] retweet:targetTweet completion:^(Tweet *tweet, NSError *error) {
             if (error == nil) {
-                self.tweet.currentUserRetweetId = tweet.tweetId;
-                self.tweet.isRetweeted = YES;
-                self.tweet.retweetCount = tweet.retweetCount;
+                targetTweet.currentUserRetweetId = tweet.tweetId;
+                targetTweet.isRetweeted = YES;
+                targetTweet.retweetCount = tweet.retweetCount;
                 [self updateTweetViews];
-                [self.delegate didUpdateTweet:self.tweet];
+                [self.delegate didUpdateTweet:targetTweet];
             } else {
                 [self onError:error];
             }

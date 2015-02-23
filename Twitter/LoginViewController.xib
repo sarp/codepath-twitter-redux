@@ -28,7 +28,7 @@
                         <action selector="onLogin:" destination="-1" eventType="touchUpInside" id="4GG-nR-FBm"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitter_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Yfz-mN-sn0">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="twitter_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Yfz-mN-sn0">
                     <rect key="frame" x="136" y="200" width="48" height="48"/>
                 </imageView>
             </subviews>

@@ -29,6 +29,7 @@
 @implementation TweetsViewController
 
 - (void) didUpdateTweet:(Tweet *)tweet {
+    
     [self refresh];
 }
 

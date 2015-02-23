@@ -24,5 +24,6 @@
 
 - (id) initWithDictionary: (NSDictionary *)dictionary;
 + (NSArray *) tweetsWithArray:(NSArray *) array;
+- (BOOL) isRetweet;
 
 @end

@@ -34,6 +34,10 @@
     return self;
 }
 
+- (BOOL) isRetweet {
+    return self.retweetedTweet != nil;
+}
+
 + (NSArray *) tweetsWithArray:(NSArray *) array {
     NSMutableArray *tweets = [NSMutableArray array];
     for (NSDictionary *dictionary in array) {
