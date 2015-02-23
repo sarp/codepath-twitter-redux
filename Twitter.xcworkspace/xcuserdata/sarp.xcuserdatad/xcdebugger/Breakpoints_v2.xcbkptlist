@@ -194,36 +194,6 @@
             endingLineNumber = "151"
             landmarkName = "-onRetweet:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[TweetDetailsController onRetweet:]"
-                  moduleName = "Twitter"
-                  urlString = "file:///Users/sarp/Learning/Twitter/Twitter/TweetDetailsController.m"
-                  timestampString = "446361437.029985"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "151"
-                  endingLineNumber = "151"
-                  offsetFromSymbolStart = "390">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__36-[TweetDetailsController onRetweet:]_block_invoke"
-                  moduleName = "Twitter"
-                  urlString = "file:///Users/sarp/Learning/Twitter/Twitter/TweetDetailsController.m"
-                  timestampString = "446361437.030178"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "151"
-                  endingLineNumber = "151"
-                  offsetFromSymbolStart = "67">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -345,11 +315,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Twitter/TweetsViewController.m"
-            timestampString = "446277830.387766"
+            timestampString = "446361796.640402"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "-refresh"
             landmarkType = "5">
          </BreakpointContent>

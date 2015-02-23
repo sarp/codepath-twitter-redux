@@ -100,8 +100,34 @@
     [self onNewTweet:cell.currentTweet];
 }
 
+- (int) findTweetIndex:(Tweet*) tweet {
+    for (int i = 0; i < self.tweets.count; i++) {
+        Tweet* current = self.tweets[i];
+        if ([current.tweetId isEqualToString:tweet.tweetId]) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 - (void) onTapFavorite:(TweetCell *)cell {
-    NSLog(@"On favorite: %@", cell.currentTweet.text);
+    if (cell.currentTweet.isFavorited) {
+        [[TwitterClient sharedInstance] unfavorite:cell.currentTweet completion:^(Tweet *tweet, NSError *error) {
+            int index = [self findTweetIndex:tweet];
+            NSMutableArray *newtweets = [NSMutableArray arrayWithArray:self.tweets];
+            newtweets[index] = tweet;
+            self.tweets = newtweets;
+            [self.tableView reloadData];
+        }];
+    } else {
+        [[TwitterClient sharedInstance] favorite:cell.currentTweet completion:^(Tweet *tweet, NSError *error) {
+            int index = [self findTweetIndex:tweet];
+            NSMutableArray *newtweets = [NSMutableArray arrayWithArray:self.tweets];
+            newtweets[index] = tweet;
+            self.tweets = newtweets;
+            [self.tableView reloadData];
+        }];
+    }
 }
 
 - (void) onTapRetweet:(TweetCell *)cell {
