@@ -114,4 +114,8 @@
     [self updatePadding:(device.orientation == UIDeviceOrientationPortrait)];
 }
 
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end

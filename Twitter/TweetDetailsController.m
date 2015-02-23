@@ -81,6 +81,7 @@
     self.favoriteCount.text = displayedTweet.favoriteCount;
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
     [formatter setDateFormat:@"M/d/yy, h:m a"];
     self.tweetDateText.text = [formatter stringFromDate:displayedTweet.createdAt];
     
@@ -200,4 +201,9 @@
     UIDevice * device = note.object;
     [self updatePadding:(device.orientation == UIDeviceOrientationPortrait)];
 }
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end

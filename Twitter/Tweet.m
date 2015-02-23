@@ -18,6 +18,7 @@
         NSString *createdString = dictionary[@"created_at"];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"EEE MMM d HH:mm:ss Z y";
+        formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
         self.user = [[User alloc] initWithDictionary:dictionary[@"user"]];
         self.createdAt = [formatter dateFromString:createdString];
         self.retweetCount = [dictionary[@"retweet_count"] stringValue];

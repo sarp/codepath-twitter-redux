@@ -132,4 +132,9 @@
 - (IBAction)onLogout:(id)sender {
     [[User currentUser] logout];
 }
+
+- (void) dealloc {
+    self.tableView.delegate = nil;
+    self.tableView.dataSource = nil;
+}
 @end
