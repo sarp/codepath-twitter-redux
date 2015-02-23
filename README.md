@@ -2,7 +2,7 @@
 
 This is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
 
-Time spent: `12`
+Time spent: `20`
 
 ### Features
 
@@ -28,4 +28,6 @@ Time spent: `12`
 
 ### Walkthrough
 
-![Video Walkthrough](...)
+![Login](login.gif)
+![Details View](details.gif)
+![Compose](newtweet.gif)
