@@ -29,5 +29,7 @@ Time spent: `20`
 ### Walkthrough
 
 ![Login](login.gif)
+
 ![Details View](details.gif)
+
 ![Compose](newtweet.gif)
