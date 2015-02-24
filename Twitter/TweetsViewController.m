@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *tweets;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) UIActivityIndicatorView *loadingView;
+@property (nonatomic, strong) TweetCell *prototypeCell;
+
 
 - (IBAction)onLogout:(id)sender;
 @end
@@ -29,8 +32,14 @@
 @implementation TweetsViewController
 
 - (void) didUpdateTweet:(Tweet *)tweet {
-    
-    [self refresh];
+    // TODO
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.prototypeCell.tweet = self.tweets[indexPath.row];
+    [self.prototypeCell layoutSubviews];
+    CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height + 1;
 }
 
 - (void)viewDidLoad {
@@ -43,6 +52,16 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil] forCellReuseIdentifier:@"TweetCell"];
     
+    self.prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
+    
+    // Infinite loading
+    UIView *tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    self.loadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [self.loadingView startAnimating];
+    self.loadingView.center = tableFooterView.center;
+    [tableFooterView addSubview:self.loadingView];
+    self.tableView.tableFooterView = tableFooterView;
+    
     // Initialize Navigation
     self.title = @"Home";
     UINavigationBar *navBar = self.navigationController.navigationBar;
@@ -54,11 +73,11 @@
     
     // Pull to refresh
     self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self.refreshControl addTarget:self action:@selector(loadPullToRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
     
     // Fetch data
-    [self refresh];
+    [self loadInitial];
 }
 
 #pragma mark - Table view methods
@@ -71,7 +90,64 @@
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell" forIndexPath:indexPath];
     [cell setTweet:self.tweets[indexPath.row]];
     cell.delegate = self;
+    
+    NSInteger lastItemIndex = self.tweets.count - 1;
+    if (lastItemIndex == indexPath.row) {
+        // load more
+        NSLog(@"Last item showing");
+        [self loadMore];
+    }
     return cell;
+}
+
+- (NSMutableArray*) calculateNewIndexes:(NSArray*) tweets withOffset:(NSInteger) previousOffset {
+    NSMutableArray *newIndexes = [NSMutableArray arrayWithCapacity:tweets.count];
+    for (NSInteger i = 0; i < tweets.count; i++) {
+        [newIndexes addObject:[NSIndexPath indexPathForRow:(previousOffset + i) inSection:0]];
+    }
+    return newIndexes;
+}
+
+- (void) loadInitial {
+    [[TwitterClient sharedInstance] homeTimelineWithParams:@{@"include_my_retweet" : @"true"} completion:^(NSArray *tweets, NSError *error) {
+        self.tweets = tweets;
+        [self.tableView reloadData];
+    }];
+}
+
+- (void) loadPullToRefresh {
+    if (self.tweets.count == 0) {
+        [self loadInitial];
+    } else {
+        Tweet *firstTweet = [self.tweets firstObject];
+        
+        [[TwitterClient sharedInstance] homeTimelineWithParams:@{@"include_my_retweet" : @"true", @"since_id" : firstTweet.tweetId} completion:^(NSArray *tweets, NSError *error) {
+            if (tweets.count > 0) {
+                NSArray *newIndexes = [self calculateNewIndexes:tweets withOffset:0];
+                self.tweets = [tweets arrayByAddingObjectsFromArray:self.tweets];
+                [self.tableView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+            [self.refreshControl endRefreshing];
+        }];
+    }
+}
+
+- (void) loadMore {
+    Tweet * lastTweet = [self.tweets lastObject];
+    long long lastTweetId = [lastTweet.tweetId longLongValue];
+    NSString *maxId = [NSString stringWithFormat:@"%lld", lastTweetId - 1];
+    [[TwitterClient sharedInstance] homeTimelineWithParams:@{@"include_my_retweet" : @"true", @"max_id" : maxId} completion:^(NSArray *tweets, NSError *error) {
+        if (tweets.count > 0) {
+            NSArray *newIndexes = [self calculateNewIndexes:tweets withOffset:self.tweets.count];
+            self.tweets = [self.tweets arrayByAddingObjectsFromArray:tweets];
+            [CATransaction setDisableActions:YES];
+            [self.tableView insertRowsAtIndexPaths:newIndexes withRowAnimation:UITableViewRowAnimationNone];
+            [CATransaction setDisableActions:NO];
+        } else {
+            // reached end
+            [self.loadingView stopAnimating];
+        }
+    }];
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -79,20 +155,6 @@
     TweetDetailsController *vc = [[TweetDetailsController alloc] initWithTweet:self.tweets[indexPath.row]];
     vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void) refresh {
-    [[TwitterClient sharedInstance] homeTimelineWithParams:@{@"include_my_retweet" : @"true"} completion:^(NSArray *tweets, NSError *error) {
-        if (error == nil) {
-            [self.refreshControl endRefreshing];
-            self.tweets = tweets;
-            [self.tableView reloadData];
-        } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Server Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-        }
-        
-    }];
 }
 
 # pragma mark - TweetCell delegate methods
