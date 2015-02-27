@@ -7,20 +7,41 @@
 //
 
 #import "LeftViewController.h"
+#import "UIImageView+AFNetworking.h"
+#import "User.h"
 
 @interface LeftViewController ()
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImage;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 
 @end
 
 @implementation LeftViewController
 
+static NSInteger const kProfileIndex = 0;
+static NSInteger const kHomeIndex = 1;
+static NSInteger const kMentionsIndex = 2;
+static NSInteger const kLogoutIndex = 3;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"viewdidLoad");
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    // Do any additional setup after loading the view from its nib.
+    
+    [self.tableView reloadData];
+    
+    User *currentUser = [User currentUser];
+    self.nameLabel.text = currentUser.name;
+    self.usernameLabel.text = [NSString stringWithFormat:@"@%@", currentUser.screenname];
+    [self.profileImage setImageWithURL:currentUser.profileImageUrl];
+    self.profileImage.layer.cornerRadius = 3;
+    self.profileImage.clipsToBounds = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,12 +52,23 @@
 #pragma mark - Table view methods
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return 4;
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Default"];
-    cell.textLabel.text = @"SARP";
+    if (indexPath.row == kProfileIndex) {
+        cell.textLabel.text = @"Profile";
+    } else if (indexPath.row == kHomeIndex) {
+        cell.textLabel.text = @"Timeline";
+    } else if (indexPath.row == kMentionsIndex) {
+        cell.textLabel.text = @"Mentions";
+    } else if (indexPath.row == kLogoutIndex) {
+        cell.textLabel.text = @"Logout";
+    } else {
+        cell.textLabel.text = @"Unknown";
+    }
+
     return cell;
 }
 
@@ -48,3 +80,4 @@
     [self.delegate didTapController:self withIndexPath:indexPath];
 }
 @end
+;

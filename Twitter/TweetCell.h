@@ -16,6 +16,7 @@
 - (void) onTapFavorite: (TweetCell*) cell;
 - (void) onTapReply: (TweetCell*) cell;
 - (void) onTapRetweet: (TweetCell*) cell;
+- (void) onTapPhoto: (TweetCell*) cell forUser:(User*) user;
 
 @end
 

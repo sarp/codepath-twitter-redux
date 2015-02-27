@@ -74,8 +74,8 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
     }];
 }
 
-- (void) userTimelineForUser:(NSString*) screenName completion:(void (^)(NSArray *tweets, NSError * error)) completion {
-    NSDictionary *params = @{ @"screen_name" : screenName};
+- (void) userTimelineForUser:(User*) user completion:(void (^)(NSArray *tweets, NSError * error)) completion {
+    NSDictionary *params = @{ @"screen_name" : user.screenname, @"include_rts": @"true"};
     [self GET:@"1.1/statuses/user_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *tweets = [Tweet tweetsWithArray:responseObject];
         completion(tweets, nil);

@@ -31,17 +31,10 @@
     
     UIViewController *mainController;
     if (user != nil) {
-//        mainController = [[TweetsViewController alloc] init];
         mainController = [[MainViewController alloc] init];
     } else {
         mainController = [[LoginViewController alloc] init];
     }
-    
-    /*
-    UINavigationController* nvc = [[UINavigationController alloc] initWithRootViewController:mainController];
-    [nvc.navigationBar setHidden:user == nil];
-    self.window.rootViewController = nvc;
-     */
 
     self.window.rootViewController = mainController;
     
@@ -53,9 +46,10 @@
 }
 
 - (void) userDidLogout {
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
-    [nvc.navigationBar setHidden:YES];
-    self.window.rootViewController = nvc;
+//    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+//    [nvc.navigationBar setHidden:YES];
+//    self.window.rootViewController = nvc;
+    self.window.rootViewController = [[LoginViewController alloc] init];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

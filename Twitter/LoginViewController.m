@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "TwitterClient.h"
 #import "TweetsViewController.h"
+#import "MainViewController.h"
 
 @interface LoginViewController ()
 
@@ -35,8 +36,10 @@
     [[TwitterClient sharedInstance] loginWithCompletion:^(User *user, NSError *error) {
         if (user != nil) {
             // Modally present tweets view
-            [self.navigationController pushViewController:[[TweetsViewController alloc] init] animated:YES];
-            [self.navigationController.navigationBar setHidden:NO];
+            UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+            window.rootViewController = [[MainViewController alloc] init];
+
+//            [self.navigationController pushViewController:[[MainViewController alloc] init] animated:YES];
         } else {
             // Present error view
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

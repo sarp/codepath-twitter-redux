@@ -31,6 +31,13 @@ NSString* const kCurrentUserKey = @"kCurrentUserKey";
         self.screenname = dictionary[@"screen_name"];
         self.profileImageUrl = [NSURL URLWithString:dictionary[@"profile_image_url"]];
         self.tagline = dictionary[@"description"];
+        self.profileBackgroundImageUrl = [NSURL URLWithString:dictionary[@"profile_background_image_url"]];
+        self.tweetCount = [dictionary[@"statuses_count"] stringValue];
+        self.followingCount = [dictionary[@"friends_count"] stringValue];
+        self.followerCount = [dictionary[@"followers_count"] stringValue];
+        if (dictionary[@"profile_banner_url"] != nil) {
+            self.bannerUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/mobile_retina", dictionary[@"profile_banner_url"]]];
+        }
     }
     return self;
 }

@@ -8,12 +8,18 @@
 
 #import "MainViewController.h"
 #import "TweetsViewController.h"
+#import "MentionsViewController.h"
+#import "ProfileViewController.h"
 
 @interface MainViewController ()
 @property (weak, nonatomic) IBOutlet UIView *subviewContainer;
 @property (assign, nonatomic) CGAffineTransform oldTransform;
 @property (nonatomic, strong) LeftViewController *leftController;
-@property (nonatomic, strong) UINavigationController *rightController;
+
+@property (nonatomic, strong) UINavigationController *tweetsViewController;
+@property (nonatomic, strong) UINavigationController *profileViewController;
+@property (nonatomic, strong) UINavigationController *mentionsViewController;
+
 @property (nonatomic, strong) UIViewController *currentController;
 
 - (IBAction)onPanGesture:(UIPanGestureRecognizer *)sender;
@@ -32,12 +38,22 @@ static NSInteger const kMinScroll = 0;
     self.leftController = [[LeftViewController alloc] init];
     self.leftController.delegate = self;
     
-    TweetsViewController *controller = [[TweetsViewController alloc] init];
-    UINavigationController* nvc = [[UINavigationController alloc] initWithRootViewController:controller];
-    self.rightController = nvc;
+    TweetsViewController *tweetsViewController = [[TweetsViewController alloc] init];
+    UINavigationController* tweetsNVC = [[UINavigationController alloc] initWithRootViewController:tweetsViewController];
+    self.tweetsViewController = tweetsNVC;
     
+    MentionsViewController *mentionsViewController = [[MentionsViewController alloc] init];
+    UINavigationController *mentionsNVC = [[UINavigationController alloc] initWithRootViewController:mentionsViewController];
+    self.mentionsViewController = mentionsNVC;
+    
+    ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+    profileViewController.user = [User currentUser];
+    UINavigationController *profileNVC = [[UINavigationController alloc] initWithRootViewController:profileViewController];
+    self.profileViewController = profileNVC;
+    
+
     [self displayContentController:self.leftController];
-    [self displayContentController:self.rightController];
+    [self displayContentController:self.tweetsViewController];
     
     self.oldTransform = CGAffineTransformIdentity;
 }
@@ -109,7 +125,7 @@ static NSInteger const kMinScroll = 0;
     newC.view.frame = [self.subviewContainer frame]; // 2
     CGRect endFrame = [self.subviewContainer frame];
     [self transitionFromViewController: oldC toViewController: newC // 3
-                              duration: 0.25 options:0
+                              duration: 0.1 options:0
                             animations:^{
                                 newC.view.frame = oldC.view.frame; // 4
                                 oldC.view.frame = endFrame;
@@ -124,10 +140,28 @@ static NSInteger const kMinScroll = 0;
 - (void) didTapController:(LeftViewController*) controller withIndexPath:(NSIndexPath*) indexPath {
     NSLog(@"didTapController: %ld", indexPath.row);
     
+    if (indexPath.row == 3) {
+        [[User currentUser] logout];
+        return;
+    }
+    
     [self animateWithBlock:^{
         self.currentController.view.transform = CGAffineTransformIdentity;
     } completion:^{
-            [self cycleFromViewController:self.currentController toViewController:self.rightController];
+        UIViewController *nextController;
+        if (indexPath.row == 0) {
+            nextController = self.profileViewController;
+        } else if (indexPath.row == 1) {
+            nextController = self.tweetsViewController;
+        } else if (indexPath.row == 2){
+            nextController = self.mentionsViewController;
+        }
+        
+        if (self.currentController != nextController) {
+            [self cycleFromViewController:self.currentController toViewController:nextController];
+        } else {
+            NSLog(@"already viewing that");
+        }
     }];
 }
 @end

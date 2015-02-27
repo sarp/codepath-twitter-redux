@@ -13,6 +13,7 @@
 #import "Tweet.h"
 #import "TweetCell.h"
 #import "TwitterClient.h"
+#import "ProfileViewController.h"
 
 @interface TweetsViewController ()
 
@@ -68,7 +69,7 @@
     navBar.tintColor = [UIColor whiteColor];
     navBar.barTintColor = [UIColor colorWithRed:100.0f/255.0f green:166.0f/255.0f blue:233.0f/255.0f alpha:1.0f];
     navBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]};
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onLogout:)];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onLogout:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self action:@selector(onNewTweet)];
     
     // Pull to refresh
@@ -218,8 +219,10 @@
     [self presentViewController:nvc animated:YES completion:nil];
 }
 
-- (IBAction)onLogout:(id)sender {
-    [[User currentUser] logout];
+- (void) onTapPhoto:(TweetCell *)cell forUser:(User *)user {
+    ProfileViewController *pvc = [[ProfileViewController alloc] init];
+    pvc.user = user;
+    [self.navigationController pushViewController:pvc animated:YES];
 }
 
 - (void) dealloc {

@@ -75,6 +75,9 @@
     self.profileImage.layer.cornerRadius = 3;
     self.profileImage.clipsToBounds = YES;
     
+    UITapGestureRecognizer *profileRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapUserProfile)];
+    [self.profileImage addGestureRecognizer:profileRecognizer];
+    
     UITapGestureRecognizer *replyRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapReply)];
     [self.replyImage addGestureRecognizer:replyRecognizer];
     
@@ -97,6 +100,12 @@
 
 - (void) onTapRetweet {
     [self.delegate onTapRetweet:self];
+}
+
+- (void) onTapUserProfile {
+    User *targetUser = self.currentTweet.isRetweet ? self.currentTweet.retweetedTweet.user
+    : self.currentTweet.user;
+    [self.delegate onTapPhoto:self forUser:targetUser];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
