@@ -36,7 +36,7 @@
     } else if (count >= 1E4) {
         return [NSString stringWithFormat:@"%.1fK", (double)count / 1E3];
     } else if (count >= 1E3) {
-        return [NSString stringWithFormat:@"%ld,%ld", count / 1000, count % 1000];
+        return [NSString stringWithFormat:@"%ld,%03ld", count / 1000, count % 1000];
     } else {
         return original;
     }
