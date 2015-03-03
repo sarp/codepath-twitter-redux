@@ -35,3 +35,4 @@ Time spent: `16`
 - [ ] Swipe to delete an account
 
 ### Walkthrough
+![Video Walkthrough](twitter-redux.gif)
